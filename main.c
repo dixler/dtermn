@@ -38,6 +38,7 @@ gboolean key_press_cb(VteTerminal *vte, GdkEventKey *event) {
                 return TRUE;
         }
     }
+    //test
     return FALSE;
 }
 

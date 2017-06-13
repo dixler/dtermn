@@ -38,16 +38,6 @@ gboolean key_press_cb(VteTerminal *vte, GdkEventKey *event) {
                 return TRUE;
         }
     }
-    else{
-        switch (gdk_keyval_to_lower(event->keyval)) {
-            case GDK_KEY_c:
-                vte_terminal_copy_clipboard(vte);
-                return TRUE;
-            case GDK_KEY_v:
-                vte_terminal_paste_clipboard(vte);
-                return TRUE;
-        }
-    }
     return FALSE;
 }
 

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <stdlib.h>
 
 //Thank you termite for your source code example
-gboolean key_press_cb(VteTerminal *vte, GdkEventKey *event) {
+gboolean term_key_press_cb(VteTerminal *vte, GdkEventKey *event) {
     const guint modifiers = event->state & gtk_accelerator_get_default_mod_mask();
     if (modifiers == (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) {
         switch (gdk_keyval_to_lower(event->keyval)) {
@@ -41,11 +41,20 @@ gboolean key_press_cb(VteTerminal *vte, GdkEventKey *event) {
     return FALSE;
 }
 
+gboolean pane_key_press_cb(GtkPaned *pane, GdkEventKey *event) {
+    const guint modifiers = event->state & gtk_accelerator_get_default_mod_mask();
+    static int bar = 0;
+    switch (event->keyval) {
+        case 65515:
+            gtk_paned_set_position(pane, bar);
+            bar = (bar == 0)?180:0;
+            return TRUE;
+    }
+    return FALSE;
+}
+
 int main(int argc, char *argv[]){
-    GtkWidget *window;
-    GtkWidget *terminal;
-    GtkWidget *sidebar;
-    GtkWidget *pane;
+    GtkWidget *window, *terminal, *sidebar, *pane;
     GPid pid = -1;
     PangoFontDescription *font;
         font = pango_font_description_new();
@@ -106,12 +115,13 @@ int main(int argc, char *argv[]){
         vte_terminal_set_cursor_blink_mode (VTE_TERMINAL(sidebar), VTE_CURSOR_BLINK_OFF);
         vte_terminal_set_font_scale (VTE_TERMINAL(sidebar), 1.50);
         vte_terminal_set_font (VTE_TERMINAL(sidebar), font);
+        g_signal_connect(GTK_PANED(pane), "key-press-event", G_CALLBACK(pane_key_press_cb), NULL);
     }
 
     /* Connect some signals */
     g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
     g_signal_connect(VTE_TERMINAL(terminal), "child-exited", gtk_main_quit, NULL);
-    g_signal_connect(VTE_TERMINAL(terminal), "key-press-event", G_CALLBACK(key_press_cb), NULL);
+    g_signal_connect(VTE_TERMINAL(terminal), "key-press-event", G_CALLBACK(term_key_press_cb), NULL);
 
     /* Put widgets together and run the main loop */
     gtk_container_add(GTK_CONTAINER(window), pane);

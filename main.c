@@ -92,6 +92,7 @@ int main(int argc, char *argv[]){
         sidebar = vte_terminal_new();
         gtk_paned_add1(GTK_PANED(pane), VTE_TERMINAL(sidebar));
         gtk_paned_set_position(GTK_PANED(pane), 180);
+        //gtk_paned_set_position(GTK_PANED(pane), 180);
 
         vte_terminal_spawn_sync(VTE_TERMINAL(sidebar),
             VTE_PTY_DEFAULT,

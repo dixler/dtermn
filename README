@@ -1,0 +1,10 @@
+If you somehow got here, cool.
+I made a crummy terminal and a script that prints the ls of a directory of the left panel
+
+    $ ./mk
+
+compiles everything
+
+./dtermn script.sh
+
+gets it fully working

@@ -1,3 +1,5 @@
+increase scrollback
+-------------------------------------------------------------------------------
 find current directory
     list files in current directory
 Graphically display files and directories on side panel

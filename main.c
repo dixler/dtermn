@@ -90,6 +90,7 @@ int main(int argc, char *argv[]){
 
     vte_terminal_set_font_scale (VTE_TERMINAL(terminal), 1.50);
     vte_terminal_set_font (VTE_TERMINAL(terminal), font);
+    vte_terminal_set_scrollback_lines (VTE_TERMINAL(terminal), -1);
 
     //Only add sidebar if shell script presented
     if(argc >  1){

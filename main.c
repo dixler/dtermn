@@ -65,7 +65,7 @@ int main(int argc, char *argv[]){
     // create gtk elements
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     terminal = vte_terminal_new();
-    pane = gtk_hpaned_new();
+    pane = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
 
 
     gtk_window_set_title(GTK_WINDOW(window), "dtermn");
@@ -100,7 +100,7 @@ int main(int argc, char *argv[]){
         gchar **dirs = (gchar *[]){g_strdup(argv[1]), g_strdup(pid_s), NULL };
 
         sidebar = vte_terminal_new();
-        gtk_paned_add1(GTK_PANED(pane), VTE_TERMINAL(sidebar));
+        gtk_paned_add1(GTK_PANED(pane), sidebar);
         gtk_paned_set_position(GTK_PANED(pane), 180);
         //gtk_paned_set_position(GTK_PANED(pane), 180);
 
